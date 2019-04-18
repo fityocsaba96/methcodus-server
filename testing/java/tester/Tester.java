@@ -38,19 +38,23 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 import static org.junit.platform.engine.TestExecutionResult.Status.SUCCESSFUL;
 
 public class Tester {
-  public static void main(String[] args) throws ClassNotFoundException, FileNotFoundException,
-  IOException, MalformedURLException, NoSuchAlgorithmException, UnsupportedEncodingException {
-    String solutionCode = System.getenv("SOLUTION_CODE"), testCode = System.getenv("TEST_CODE");
-    File codesDirectory = createCodesDirectory(solutionCode, testCode);
-    Map<String, Object> solutionInfo = getCodeInfo(solutionCode, "Solution", codesDirectory),
-      testInfo = getCodeInfo(testCode, "Test", codesDirectory);
-    String solutionCodePath = writeCodeToFile(codesDirectory, solutionInfo, solutionCode),
-      testCodePath = writeCodeToFile(codesDirectory, testInfo, testCode);
-    compileCodes(codesDirectory, solutionCodePath, testCodePath);
-    List<ClassSelector> testClassSelectors = getClassSelectors(codesDirectory, testInfo);
-    JSONArray testResults = executeTests(testClassSelectors);
-    deleteDirectory(codesDirectory);
-    System.out.print(testResults);
+  public static void main(String[] args) {
+    File codesDirectory = null;
+    try {
+      String solutionCode = System.getenv("SOLUTION_CODE"), testCode = System.getenv("TEST_CODE");
+      codesDirectory = createCodesDirectory(solutionCode, testCode);
+      Map<String, Object> solutionInfo = getCodeInfo(solutionCode, "Solution", codesDirectory),
+        testInfo = getCodeInfo(testCode, "Test", codesDirectory);
+      String solutionCodePath = writeCodeToFile(codesDirectory, solutionInfo, solutionCode),
+        testCodePath = writeCodeToFile(codesDirectory, testInfo, testCode);
+      compileCodes(codesDirectory, solutionCodePath, testCodePath);
+      List<ClassSelector> testClassSelectors = getClassSelectors(codesDirectory, testInfo);
+      JSONArray testResults = executeTests(testClassSelectors);
+      deleteDirectory(codesDirectory);
+      System.out.print(testResults);
+    } catch (Throwable throwable) {
+      exit(255, codesDirectory);
+    }
   }
 
   private static File createCodesDirectory(String solutionCode, String testCode) throws NoSuchAlgorithmException {
@@ -73,10 +77,26 @@ public class Tester {
       unit = StaticJavaParser.parse(code);
     }
     catch (ParseProblemException exception) {
-      codesDirectory.delete();
-      System.exit(1);
+      exit(1, codesDirectory);
     }
     return Map.of("fileName", getFileName(unit, defaultFileName), "typeNames", getTypeNames(unit));
+  }
+
+  private static void exit(int exitCode, File deletableDirectory) {
+    if (deletableDirectory != null) {
+      deleteDirectory(deletableDirectory);
+    }
+    System.exit(exitCode);
+  }
+
+  private static void deleteDirectory(File directory) {
+    File[] contents = directory.listFiles();
+    if (contents != null) {
+      for (File file : contents) {
+        deleteDirectory(file);
+      }
+    }
+    directory.delete();
   }
 
   private static String getFileName(CompilationUnit unit, String defaultFileName) {
@@ -110,19 +130,8 @@ public class Tester {
     ).call();
     fileManager.close();
     if (!success) {
-      deleteDirectory(codesDirectory);
-      System.exit(1);
+      exit(2, codesDirectory);
     }
-  }
-
-  private static void deleteDirectory(File directory) {
-    File[] contents = directory.listFiles();
-    if (contents != null) {
-      for (File file : contents) {
-        deleteDirectory(file);
-      }
-    }
-    directory.delete();
   }
 
   private static List<ClassSelector> getClassSelectors(File codesDirectory, Map<String, Object> codeInfo)
