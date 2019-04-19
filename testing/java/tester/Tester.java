@@ -44,7 +44,7 @@ public class Tester {
       String solutionCode = System.getenv("SOLUTION_CODE"), testCode = System.getenv("TEST_CODE");
       codesDirectory = createCodesDirectory(solutionCode, testCode);
       Map<String, Object> solutionInfo = getCodeInfo(solutionCode, "Solution", codesDirectory),
-        testInfo = getCodeInfo(testCode, "Test", codesDirectory);
+        testInfo = getCodeInfo(testCode, "SolutionTest", codesDirectory);
       String solutionCodePath = writeCodeToFile(codesDirectory, solutionInfo, solutionCode),
         testCodePath = writeCodeToFile(codesDirectory, testInfo, testCode);
       compileCodes(codesDirectory, solutionCodePath, testCodePath);
