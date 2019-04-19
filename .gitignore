@@ -60,6 +60,9 @@ typings/
 # next.js build output
 .next
 
-testing/*/tester/*
-!testing/javascript/tester/*.js
-!testing/java/tester/*.java
+testing/*/*
+!testing/*/codes
+!testing/javascript/*.js
+!testing/java/*.java
+testing/*/codes/*
+!testing/*/codes/.gitkeep

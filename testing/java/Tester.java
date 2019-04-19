@@ -59,7 +59,7 @@ public class Tester {
 
   private static File createCodesDirectory(String solutionCode, String testCode) throws NoSuchAlgorithmException {
     File codesDirectory = new File(
-      String.format("../codes/%s_%d", generateMD5(solutionCode + testCode), System.currentTimeMillis())
+      String.format("codes/%s_%d", generateMD5(solutionCode + testCode), System.currentTimeMillis())
     );
     codesDirectory.mkdir();
     return codesDirectory;
