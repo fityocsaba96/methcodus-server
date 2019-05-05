@@ -1,6 +1,6 @@
 import org.json.JSONArray;
 
-public class Tester {
+public class JavaCodeTester {
   public static void main(String[] args) {
     String solutionCode = System.getenv("SOLUTION_CODE"),
       testCode = System.getenv("TEST_CODE"),
