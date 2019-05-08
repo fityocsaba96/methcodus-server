@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { exec as execCallback } from 'child_process';
+import { resolve } from 'path';
 import { promisify } from 'util';
 import { CodeTest, JsonTest } from './tester.interface';
 
@@ -25,7 +26,7 @@ export class TesterService {
   private async runTestCommand(test: CodeTest | JsonTest, command: string): Promise<object> {
     try {
       const { stdout } = await exec(command, {
-        cwd: `../../testing/${test.language}`,
+        cwd: resolve(__dirname, `../../testing/${test.language}`),
         env: {
           SOLUTION_CODE: test.solutionCode,
           ...(this.isCodeTest(test) ? { TEST_CODE: test.testCode } : { TEST_JSON: test.testJson }),
