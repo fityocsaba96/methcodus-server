@@ -41,6 +41,7 @@ module.exports = class JavascriptCodeJasmineTester {
   }
 
   _setupBabelWithCoreJs() {
+    process.env.BABEL_DISABLE_CACHE = true;
     require('@babel/register')({
       presets: [
         [
@@ -52,7 +53,6 @@ module.exports = class JavascriptCodeJasmineTester {
           },
         ],
       ],
-      cache: false,
     });
   }
 
