@@ -3,6 +3,8 @@ import { resolve } from 'path';
 import { TesterService } from './tester.service';
 import { CodeTest, JsonTest } from './tester.interface';
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 describe('tester service', () => {
   describe('test', () => {
     describe('javascript tester with test code', () => {
@@ -140,7 +142,7 @@ describe('tester service', () => {
             results: [{ name: `[X+${i}]`, status: 'pass' }],
           })),
         );
-      }, 10000);
+      }, 20000);
 
       it('should create codes folder and delete it after successful test', async () => {
         let renames = 0;
@@ -430,7 +432,7 @@ describe('tester service', () => {
             results: [{ name: `[X+${i}]`, status: 'pass' }],
           })),
         );
-      }, 30000);
+      }, 40000);
 
       it('should create codes folder and delete it after successful test', async () => {
         let renames = 0;
