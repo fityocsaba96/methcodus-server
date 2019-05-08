@@ -1,0 +1,27 @@
+{
+  "name": "methcodus-server",
+  "version": "1.0.0",
+  "description": "Backend of Methcodus",
+  "scripts": {
+    "test": "ts-node node_modules/jasmine/bin/jasmine **/*.spec.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fityocsaba96/methcodus-server.git"
+  },
+  "keywords": [],
+  "author": "Csaba Fityo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fityocsaba96/methcodus-server/issues"
+  },
+  "homepage": "https://github.com/fityocsaba96/methcodus-server#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jasmine": "3.3.12",
+    "@types/node": "12.0.0",
+    "jasmine": "3.4.0",
+    "ts-node": "8.1.0",
+    "typescript": "3.4.5"
+  }
+}
