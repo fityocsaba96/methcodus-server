@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - target: 3000
+        published: 3000
+    environment:
+      NODE_ENV: development
+      MONGO_URL: mongodb://db:27017/methcodus
+      PORT: 3000
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    working_dir: /app
+    command: npm run start:dev
+  db:
+    image: mongo:4.1.10
+    ports:
+      - target: 27017
+        published: 27017
+    volumes:
+      - type: volume
+        source: mongo-data
+        target: /data/db
+volumes:
+  mongo-data:
