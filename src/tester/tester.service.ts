@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import { promisify } from 'util';
 import { CodeTest, JsonTest } from './tester.interface';
 
-const exec: Function = promisify(execCallback);
+const exec = promisify(execCallback);
 
 @Injectable()
 export class TesterService {
@@ -45,6 +45,6 @@ export class TesterService {
   }
 
   private isCodeTest(test: CodeTest | JsonTest): test is CodeTest {
-    return (<CodeTest>test).testCode !== undefined;
+    return (test as CodeTest).testCode !== undefined;
   }
 }

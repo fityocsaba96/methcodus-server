@@ -523,7 +523,8 @@ describe('tester service', () => {
         });
       });
 
-      it('should test on function with integer as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with integer as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -552,7 +553,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with double as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with double as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -581,7 +583,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with boolean as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with boolean as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -610,7 +613,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with string as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with string as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -639,7 +643,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with integer array as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with integer array as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -668,7 +673,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with double array as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with double array as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -697,7 +703,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with boolean array as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with boolean array as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -726,7 +733,8 @@ describe('tester service', () => {
         ).toEqual(testResults);
       });
 
-      it('should test on function with string array as parameter and return value using equals and not equals matchers, both with pass and fail statuses', async () => {
+      it(`should test on function with string array as parameter and return value using equals and not equals matchers,
+      both with pass and fail statuses`, async () => {
         const getJsonTests = (functionCallCode: string) =>
           generateIdentityFunctionJsonTests({
             functionCallCode,
@@ -1302,8 +1310,8 @@ describe('tester service', () => {
   });
 });
 
-async function test(test: CodeTest | JsonTest): Promise<object> {
-  return new TesterService().test(test);
+async function test(testData: CodeTest | JsonTest): Promise<object> {
+  return new TesterService().test(testData);
 }
 
 async function testJavascriptWithCode({ solutionCode = '', testCode = '' }: Partial<CodeTest>): Promise<object> {
