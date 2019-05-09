@@ -66,3 +66,5 @@ testing/*/*
 !testing/java/*.java
 testing/*/codes/*
 !testing/*/codes/.gitkeep
+
+dist
