@@ -4,6 +4,7 @@
   "description": "Backend of Methcodus",
   "scripts": {
     "preinstall": "./scripts/npm/preinstall.sh",
+    "start:dev": "nodemon",
     "test": "ts-node node_modules/jasmine/bin/jasmine **/*.spec.ts",
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "start": "NODE_ENV=production node dist/main.js"
@@ -31,6 +32,7 @@
     "@types/jasmine": "3.3.12",
     "@types/node": "12.0.0",
     "jasmine": "3.4.0",
+    "nodemon": "1.19.0",
     "ts-node": "8.1.0",
     "typescript": "3.4.5"
   }
