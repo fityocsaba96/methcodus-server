@@ -8,15 +8,15 @@ RUN add-apt-repository -y ppa:linuxuprising/java
 RUN echo oracle-java12-installer shared/accepted-oracle-license-v1-2 select true | debconf-set-selections
 RUN apt-get install -y oracle-java12-installer
 
-COPY . /app/
+RUN useradd -m api
+USER api
+
+COPY --chown=api . /app/
 
 WORKDIR /app
 ARG NODE_ENV=development
-RUN npm install --unsafe-perm
+RUN npm install
 RUN npm run build
 RUN npm prune --production
-
-RUN useradd -m api
-USER api
 
 CMD npm start
