@@ -8,7 +8,8 @@
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "ts-node node_modules/jasmine/bin/jasmine **/*.spec.ts",
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
-    "start": "NODE_ENV=production node dist/main.js"
+    "start": "NODE_ENV=production node dist/main.js",
+    "format-code": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,8 @@
     "@types/node": "12.12.14",
     "jasmine": "3.4.0",
     "nodemon": "2.0.1",
+    "prettier": "1.19.1",
+    "ramda": "0.26.1",
     "ts-node": "8.5.4",
     "tslint": "5.20.1",
     "typescript": "3.7.2"
