@@ -2,34 +2,29 @@ import { Injectable } from '@nestjs/common';
 import { exec as execCallback } from 'child_process';
 import { resolve } from 'path';
 import { promisify } from 'util';
-import { CodeTest, JsonTest } from './tester.interface';
+import { Test } from './tester.interface';
 
 const exec = promisify(execCallback);
 
 @Injectable()
 export class TesterService {
-  async test(test: CodeTest | JsonTest): Promise<object> {
-    let command;
-    switch (test.language) {
-      case 'javascript':
-        command = 'node javascript-code-tester.js';
-        break;
-      case 'java':
-        command = 'java -cp .:* JavaCodeTester';
-        break;
-      default:
-        return { error: { message: 'Language is not supported!' } };
+  public async test(test: Test): Promise<any> {
+    const command = { javascript: 'node javascript-code-tester.js', java: 'java -cp .:* JavaCodeTester' }[
+      test.language
+    ];
+    if (!command) {
+      return { error: { message: 'Language is not supported!' } };
     }
     return await this.runTestCommand(test, command);
   }
 
-  private async runTestCommand(test: CodeTest | JsonTest, command: string): Promise<object> {
+  private async runTestCommand(test: Test, command: string): Promise<any> {
     try {
       const { stdout } = await exec(command, {
         cwd: resolve(__dirname, `../../testing/${test.language}`),
         env: {
-          SOLUTION_CODE: test.solutionCode,
-          ...(this.isCodeTest(test) ? { TEST_CODE: test.testCode } : { TEST_JSON: test.testJson }),
+          SOLUTION_CODE: test.solution.code,
+          [test.test.type === 'code' ? 'TEST_CODE' : 'TEST_JSON']: test.test.code,
         },
       });
       return {
@@ -42,9 +37,5 @@ export class TesterService {
         },
       };
     }
-  }
-
-  private isCodeTest(test: CodeTest | JsonTest): test is CodeTest {
-    return (test as CodeTest).testCode !== undefined;
   }
 }

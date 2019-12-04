@@ -1,11 +1,10 @@
-export interface CodeTest {
-  readonly language: string;
-  readonly solutionCode: string;
-  readonly testCode: string;
-}
-
-export interface JsonTest {
-  readonly language: string;
-  readonly solutionCode: string;
-  readonly testJson: string;
-}
+export type Test = {
+  language: string;
+  solution: {
+    code: string;
+  };
+  test: {
+    code: string;
+    type: 'code' | 'json';
+  };
+};

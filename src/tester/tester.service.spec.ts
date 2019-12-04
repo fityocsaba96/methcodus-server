@@ -1,7 +1,7 @@
 import { watch } from 'fs';
 import { resolve } from 'path';
 import { TesterService } from './tester.service';
-import { CodeTest, JsonTest } from './tester.interface';
+import { Test } from './tester.interface';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
@@ -16,7 +16,10 @@ describe('tester service', () => {
               describe('', () => it('[Y]', () => {}));`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'pass' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'pass' },
+          ],
         });
       });
 
@@ -30,7 +33,10 @@ describe('tester service', () => {
               });`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'pass' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'pass' },
+          ],
         });
       });
 
@@ -73,7 +79,10 @@ describe('tester service', () => {
               xit('[Y]', () => {});`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'skip' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'skip' },
+          ],
         });
       });
 
@@ -90,7 +99,11 @@ describe('tester service', () => {
               });`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'skip' }, { name: '[Z]', status: 'skip' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'skip' },
+            { name: '[Z]', status: 'skip' },
+          ],
         });
       });
 
@@ -248,7 +261,10 @@ describe('tester service', () => {
               }`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'pass' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'pass' },
+          ],
         });
       });
 
@@ -264,7 +280,10 @@ describe('tester service', () => {
               }`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'pass' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'pass' },
+          ],
         });
       });
 
@@ -394,7 +413,10 @@ describe('tester service', () => {
               }`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'skip' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'skip' },
+          ],
         });
       });
 
@@ -411,7 +433,11 @@ describe('tester service', () => {
               }`,
           }),
         ).toEqual({
-          results: [{ name: '[X]', status: 'pass' }, { name: '[Y]', status: 'skip' }, { name: '[Z]', status: 'skip' }],
+          results: [
+            { name: '[X]', status: 'pass' },
+            { name: '[Y]', status: 'skip' },
+            { name: '[Z]', status: 'skip' },
+          ],
         });
       });
 
@@ -1300,8 +1326,8 @@ describe('tester service', () => {
       expect(
         await test({
           language: 'not-exists',
-          solutionCode: '',
-          testCode: '',
+          solution: { code: '' },
+          test: { code: '', type: 'code' },
         }),
       ).toEqual({
         error: { message: 'Language is not supported!' },
@@ -1310,24 +1336,24 @@ describe('tester service', () => {
   });
 });
 
-async function test(testData: CodeTest | JsonTest): Promise<object> {
+async function test(testData: Test): Promise<any> {
   return new TesterService().test(testData);
 }
 
-async function testJavascriptWithCode({ solutionCode = '', testCode = '' }: Partial<CodeTest>): Promise<object> {
-  return test({ language: 'javascript', solutionCode, testCode });
+async function testJavascriptWithCode({ solutionCode = '', testCode = '' }): Promise<any> {
+  return test({ language: 'javascript', solution: { code: solutionCode }, test: { code: testCode, type: 'code' } });
 }
 
-async function testJavascriptWithJson({ solutionCode = '', testJson = '' }: Partial<JsonTest>): Promise<object> {
-  return test({ language: 'javascript', solutionCode, testJson });
+async function testJavascriptWithJson({ solutionCode = '', testJson = '' }): Promise<any> {
+  return test({ language: 'javascript', solution: { code: solutionCode }, test: { code: testJson, type: 'json' } });
 }
 
-async function testJavaWithCode({ solutionCode = '', testCode = '' }: Partial<CodeTest>): Promise<object> {
-  return test({ language: 'java', solutionCode, testCode });
+async function testJavaWithCode({ solutionCode = '', testCode = '' }): Promise<any> {
+  return test({ language: 'java', solution: { code: solutionCode }, test: { code: testCode, type: 'code' } });
 }
 
-async function testJavaWithJson({ solutionCode = '', testJson = '' }: Partial<JsonTest>): Promise<object> {
-  return test({ language: 'java', solutionCode, testJson });
+async function testJavaWithJson({ solutionCode = '', testJson = '' }): Promise<any> {
+  return test({ language: 'java', solution: { code: solutionCode }, test: { code: testJson, type: 'json' } });
 }
 
 function generateIdentityFunctionJsonTests({ functionCallCode, type, passValue, failValue }): any {
