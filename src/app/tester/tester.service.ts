@@ -21,7 +21,7 @@ export class TesterService {
   private async runTestCommand(test: Test, command: string): Promise<any> {
     try {
       const { stdout } = await exec(command, {
-        cwd: resolve(__dirname, `../../testing/${test.language}`),
+        cwd: resolve(__dirname, `../../../testing/${test.language}`),
         env: {
           SOLUTION_CODE: test.solution.code,
           [test.test.type === 'code' ? 'TEST_CODE' : 'TEST_JSON']: test.test.code,

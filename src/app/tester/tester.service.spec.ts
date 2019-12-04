@@ -159,7 +159,7 @@ describe('tester service', () => {
 
       it('should create codes folder and delete it after successful test', async () => {
         let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../testing/javascript/codes'), event => {
+        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), event => {
           if (event === 'rename') {
             renames++;
           }
@@ -177,7 +177,7 @@ describe('tester service', () => {
 
       it('should create codes folder and delete it after erroneous test', async () => {
         let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../testing/javascript/codes'), event => {
+        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), event => {
           if (event === 'rename') {
             renames++;
           }
@@ -462,7 +462,7 @@ describe('tester service', () => {
 
       it('should create codes folder and delete it after successful test', async () => {
         let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../testing/java/codes'), event => {
+        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), event => {
           if (event === 'rename') {
             renames++;
           }
@@ -483,7 +483,7 @@ describe('tester service', () => {
 
       it('should create codes folder and delete it after erroneous test', async () => {
         let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../testing/java/codes'), event => {
+        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), event => {
           if (event === 'rename') {
             renames++;
           }
