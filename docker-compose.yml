@@ -19,7 +19,7 @@ services:
     working_dir: /app
     command: npm run start:dev
   db:
-    image: mongo:4.1.10
+    image: mongo:3.6.9
     ports:
       - target: 27017
         published: 27017
