@@ -8,10 +8,10 @@ RUN add-apt-repository -y ppa:linuxuprising/java
 RUN echo oracle-java13-installer shared/accepted-oracle-license-v1-2 select true | debconf-set-selections
 RUN apt-get install -y oracle-java13-installer
 
-RUN useradd -m api
-USER api
+RUN useradd -m server
+USER server
 
-COPY --chown=api . /app/
+COPY --chown=server . /app/
 
 WORKDIR /app
 ARG NODE_ENV=development
