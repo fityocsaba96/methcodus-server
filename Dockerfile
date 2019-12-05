@@ -18,5 +18,6 @@ ARG NODE_ENV=development
 RUN npm install
 RUN npm run build
 RUN npm prune --production
+ARG NODE_ENV=production
 
 CMD npm start
