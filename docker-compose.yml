@@ -29,3 +29,6 @@ services:
         target: /data/db
 volumes:
   mongo-data:
+networks:
+  default:
+    name: methcodus
