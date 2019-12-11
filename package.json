@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Backend of Methcodus",
   "scripts": {
-    "preinstall": "bash ./scripts/npm/preinstall.sh",
+    "preinstall": "bash ./scripts/preinstall.sh",
     "start:dev": "nodemon",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "ts-node node_modules/jasmine/bin/jasmine src/**/*.spec.ts",
