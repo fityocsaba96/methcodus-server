@@ -11,6 +11,7 @@ services:
     environment:
       NODE_ENV: development
       MONGODB_URI: mongodb://db:27017/methcodus
+      ALLOWED_ORIGIN: '*'
       PORT: 3000
     volumes:
       - type: bind
