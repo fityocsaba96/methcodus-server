@@ -1,4 +1,4 @@
-import { watch } from 'fs';
+import { watch, existsSync } from 'fs';
 import { resolve } from 'path';
 import { TesterService } from './tester.service';
 import { Test } from './tester.interface';
@@ -158,10 +158,12 @@ describe('tester service', () => {
       }, 20000);
 
       it('should create codes folder and delete it after successful test', async () => {
-        let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), event => {
-          if (event === 'rename') {
-            renames++;
+        let renamed = false;
+        let folderName;
+        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), (event, fileName) => {
+          if (event === 'rename' && fileName !== 'codes') {
+            renamed = true;
+            folderName = fileName;
           }
         });
         expect(
@@ -172,14 +174,17 @@ describe('tester service', () => {
           results: [{ name: '[X]', status: 'pass' }],
         });
         watcher.close();
-        expect(renames).toBe(2);
+        expect(renamed).toBeTruthy();
+        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should create codes folder and delete it after erroneous test', async () => {
-        let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), event => {
-          if (event === 'rename') {
-            renames++;
+        let renamed = false;
+        let folderName;
+        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), (event, fileName) => {
+          if (event === 'rename' && fileName !== 'codes') {
+            renamed = true;
+            folderName = fileName;
           }
         });
         expect(
@@ -190,7 +195,8 @@ describe('tester service', () => {
           error: { message: 'Syntax error!' },
         });
         watcher.close();
-        expect(renames).toBe(2);
+        expect(renamed).toBeTruthy();
+        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should return fail status on testing non-exported function', async () => {
@@ -461,10 +467,12 @@ describe('tester service', () => {
       }, 40000);
 
       it('should create codes folder and delete it after successful test', async () => {
-        let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), event => {
-          if (event === 'rename') {
-            renames++;
+        let renamed = false;
+        let folderName;
+        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), (event, fileName) => {
+          if (event === 'rename' && fileName !== 'codes') {
+            renamed = true;
+            folderName = fileName;
           }
         });
         expect(
@@ -478,14 +486,17 @@ describe('tester service', () => {
           results: [{ name: '[X]', status: 'pass' }],
         });
         watcher.close();
-        expect(renames).toBe(2);
+        expect(renamed).toBeTruthy();
+        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should create codes folder and delete it after erroneous test', async () => {
-        let renames = 0;
-        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), event => {
-          if (event === 'rename') {
-            renames++;
+        let renamed = false;
+        let folderName;
+        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), (event, fileName) => {
+          if (event === 'rename' && fileName !== 'codes') {
+            renamed = true;
+            folderName = fileName;
           }
         });
         expect(
@@ -496,7 +507,8 @@ describe('tester service', () => {
           error: { message: 'Syntax error!' },
         });
         watcher.close();
-        expect(renames).toBe(2);
+        expect(renamed).toBeTruthy();
+        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should return fail status on exception', async () => {
