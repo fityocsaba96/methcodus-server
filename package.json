@@ -9,7 +9,7 @@
     "test": "ts-node node_modules/jasmine/bin/jasmine src/**/*.spec.ts",
     "build": "rm -rf dist && nest build",
     "start": "node dist/main.js",
-    "format-code": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+    "format-code": "prettier --write \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "@types/jasmine": "3.4.0",
     "@types/node": "12.12.14",
     "jasmine": "3.4.0",
-    "prettier": "1.19.1",
+    "prettier": "2.0.4",
     "ramda": "0.26.1",
     "ts-node": "8.5.4",
     "tslint": "5.20.1",
