@@ -9,9 +9,7 @@ const exec = promisify(execCallback);
 @Injectable()
 export class TesterService {
   public async test(test: Test): Promise<any> {
-    const command = { javascript: 'node javascript-code-tester.js', java: 'java -cp .:* JavaCodeTester' }[
-      test.language
-    ];
+    const command = { javascript: 'node javascript-code-tester.js', java: 'java -cp .:* JavaCodeTester' }[test.language];
     if (!command) {
       return { error: { message: 'Language is not supported!' } };
     }

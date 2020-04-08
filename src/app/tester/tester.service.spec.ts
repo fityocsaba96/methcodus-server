@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { TesterService } from './tester.service';
 import { Test } from './tester.interface';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
 
 describe('tester service', () => {
   describe('test', () => {
@@ -155,7 +155,7 @@ describe('tester service', () => {
             results: [{ name: `[X+${i}]`, status: 'pass' }],
           })),
         );
-      }, 20000);
+      }, 40000);
 
       it('should create codes folder and delete it after successful test', async () => {
         let renamed = false;
