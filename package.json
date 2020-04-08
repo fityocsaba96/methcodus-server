@@ -4,7 +4,7 @@
   "description": "Backend of Methcodus",
   "scripts": {
     "preinstall": "bash ./scripts/preinstall.sh",
-    "start:dev": "nest start --watch",
+    "start:dev": "nest start --watch --preserveWatchOutput",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "ts-node node_modules/jasmine/bin/jasmine src/**/*.spec.ts",
     "build": "rm -rf dist && nest build",
@@ -23,23 +23,23 @@
   },
   "homepage": "https://github.com/fityocsaba96/methcodus-server#readme",
   "dependencies": {
-    "@nestjs/common": "6.10.5",
-    "@nestjs/core": "6.10.5",
-    "@nestjs/platform-express": "6.10.5",
+    "@nestjs/common": "7.0.7",
+    "@nestjs/core": "7.0.7",
+    "@nestjs/platform-express": "7.0.7",
     "reflect-metadata": "0.1.13",
-    "rxjs": "6.5.3"
+    "rxjs": "6.5.5"
   },
   "devDependencies": {
-    "@nestjs/cli": "6.12.6",
-    "@nestjs/schematics": "6.7.5",
-    "@types/express": "4.17.2",
-    "@types/jasmine": "3.4.0",
-    "@types/node": "12.12.14",
-    "jasmine": "3.4.0",
+    "@nestjs/cli": "7.1.2",
+    "@nestjs/schematics": "7.0.0",
+    "@types/express": "4.17.4",
+    "@types/jasmine": "3.5.10",
+    "@types/node": "13.11.0",
+    "jasmine": "3.5.0",
     "prettier": "2.0.4",
-    "ramda": "0.26.1",
-    "ts-node": "8.5.4",
+    "ramda": "0.27.0",
+    "ts-node": "8.8.2",
     "tslint": "6.1.1",
-    "typescript": "3.7.2"
+    "typescript": "3.8.3"
   }
 }
