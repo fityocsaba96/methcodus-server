@@ -21,8 +21,8 @@ export class TesterService {
       const { stdout } = await exec(command, {
         cwd: resolve(__dirname, `../../../testing/${test.language}`),
         env: {
-          SOLUTION_CODE: test.solution.code,
-          [test.test.type === 'code' ? 'TEST_CODE' : 'TEST_JSON']: test.test.code,
+          SOLUTION_CODE: test.solutionCode,
+          [test.type === 'code' ? 'TEST_CODE' : 'TEST_JSON']: test.testCode,
         },
       });
       return {

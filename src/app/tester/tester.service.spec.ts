@@ -1338,8 +1338,9 @@ describe('tester service', () => {
       expect(
         await test({
           language: 'not-exists',
-          solution: { code: '' },
-          test: { code: '', type: 'code' },
+          solutionCode: '',
+          testCode: '',
+          type: 'code',
         }),
       ).toEqual({
         error: { message: 'Language is not supported!' },
@@ -1353,19 +1354,19 @@ async function test(testData: Test): Promise<any> {
 }
 
 async function testJavascriptWithCode({ solutionCode = '', testCode = '' }): Promise<any> {
-  return test({ language: 'javascript', solution: { code: solutionCode }, test: { code: testCode, type: 'code' } });
+  return test({ language: 'javascript', solutionCode, testCode, type: 'code' });
 }
 
 async function testJavascriptWithJson({ solutionCode = '', testJson = '' }): Promise<any> {
-  return test({ language: 'javascript', solution: { code: solutionCode }, test: { code: testJson, type: 'json' } });
+  return test({ language: 'javascript', solutionCode, testCode: testJson, type: 'json' });
 }
 
 async function testJavaWithCode({ solutionCode = '', testCode = '' }): Promise<any> {
-  return test({ language: 'java', solution: { code: solutionCode }, test: { code: testCode, type: 'code' } });
+  return test({ language: 'java', solutionCode, testCode, type: 'code' });
 }
 
 async function testJavaWithJson({ solutionCode = '', testJson = '' }): Promise<any> {
-  return test({ language: 'java', solution: { code: solutionCode }, test: { code: testJson, type: 'json' } });
+  return test({ language: 'java', solutionCode, testCode: testJson, type: 'json' });
 }
 
 function generateIdentityFunctionJsonTests({ functionCallCode, type, passValue, failValue }): any {
