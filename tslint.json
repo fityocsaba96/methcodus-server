@@ -7,7 +7,7 @@
         "statements"
       ]
     },
-    "array-type": true,
+    "array-type": [true, "array"],
     "arrow-parens": false,
     "arrow-return-shorthand": true,
     "curly": true,
@@ -101,7 +101,8 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-pascal-case",
+        "allow-leading-underscore"
       ]
     },
     "whitespace": {
