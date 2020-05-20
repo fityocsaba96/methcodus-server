@@ -192,7 +192,7 @@ describe('tester service', () => {
             testCode: '.',
           }),
         ).toEqual({
-          error: { message: 'Syntax error!' },
+          error: 'Syntax error!',
         });
         watcher.close();
         expect(renamed).toBeTruthy();
@@ -226,7 +226,7 @@ describe('tester service', () => {
             testCode: '.',
           }),
         ).toEqual({
-          error: { message: 'Syntax error!' },
+          error: 'Syntax error!',
         });
       });
 
@@ -236,7 +236,7 @@ describe('tester service', () => {
             testCode: 'get();',
           }),
         ).toEqual({
-          error: { message: 'Unidentified error!' },
+          error: 'Unidentified error!',
         });
       });
     });
@@ -504,7 +504,7 @@ describe('tester service', () => {
             testCode: '.',
           }),
         ).toEqual({
-          error: { message: 'Syntax error!' },
+          error: 'Syntax error!',
         });
         watcher.close();
         expect(renamed).toBeTruthy();
@@ -532,7 +532,7 @@ describe('tester service', () => {
             testCode: '.',
           }),
         ).toEqual({
-          error: { message: 'Syntax error!' },
+          error: 'Syntax error!',
         });
       });
 
@@ -542,7 +542,7 @@ describe('tester service', () => {
             testCode: 'import not.exists;',
           }),
         ).toEqual({
-          error: { message: 'Compilation error!' },
+          error: 'Compilation error!',
         });
       });
     });
@@ -1304,7 +1304,7 @@ describe('tester service', () => {
                 }`,
             }),
           ).toEqual({
-            error: { message: 'Compilation error!' },
+            error: 'Compilation error!',
           });
         });
 
@@ -1328,7 +1328,7 @@ describe('tester service', () => {
                 }`,
             }),
           ).toEqual({
-            error: { message: 'Compilation error!' },
+            error: 'Compilation error!',
           });
         });
       });
@@ -1343,7 +1343,7 @@ describe('tester service', () => {
           type: 'code',
         }),
       ).toEqual({
-        error: { message: 'Language is not supported!' },
+        error: 'Language is not supported!',
       });
     });
   });

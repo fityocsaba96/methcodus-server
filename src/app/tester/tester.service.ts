@@ -11,7 +11,7 @@ export class TesterService {
   public async test(test: Test): Promise<any> {
     const command = { javascript: 'node javascript-code-tester.js', java: 'java -cp .:* JavaCodeTester' }[test.language];
     if (!command) {
-      return { error: { message: 'Language is not supported!' } };
+      return { error: 'Language is not supported!' };
     }
     return await this.runTestCommand(test, command);
   }
@@ -30,9 +30,7 @@ export class TesterService {
       };
     } catch (error) {
       return {
-        error: {
-          message: { 1: 'Syntax error!', 2: 'Compilation error!', 255: 'Unidentified error!' }[error.code],
-        },
+        error: { 1: 'Syntax error!', 2: 'Compilation error!', 255: 'Unidentified error!' }[error.code],
       };
     }
   }
