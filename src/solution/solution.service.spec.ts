@@ -1,11 +1,11 @@
 import { watch, existsSync } from 'fs';
 import { resolve } from 'path';
-import { TesterService } from './tester.service';
-import { Test } from './tester.interface';
+import { SolutionService } from './solution.service';
+import { Test, TestResults } from './solution.interface';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
 
-describe('tester service', () => {
+describe('solution service', () => {
   describe('test', () => {
     describe('javascript tester with test code', () => {
       it('should test multiple describes', async () => {
@@ -160,7 +160,7 @@ describe('tester service', () => {
       it('should create codes folder and delete it after successful test', async () => {
         let renamed = false;
         let folderName;
-        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), (event, fileName) => {
+        const watcher = watch(resolve(__dirname, '../../testing/javascript/codes'), (event, fileName) => {
           if (event === 'rename' && fileName !== 'codes') {
             renamed = true;
             folderName = fileName;
@@ -175,13 +175,13 @@ describe('tester service', () => {
         });
         watcher.close();
         expect(renamed).toBeTruthy();
-        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
+        expect(existsSync(resolve(__dirname, `../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should create codes folder and delete it after erroneous test', async () => {
         let renamed = false;
         let folderName;
-        const watcher = watch(resolve(__dirname, '../../../testing/javascript/codes'), (event, fileName) => {
+        const watcher = watch(resolve(__dirname, '../../testing/javascript/codes'), (event, fileName) => {
           if (event === 'rename' && fileName !== 'codes') {
             renamed = true;
             folderName = fileName;
@@ -196,7 +196,7 @@ describe('tester service', () => {
         });
         watcher.close();
         expect(renamed).toBeTruthy();
-        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
+        expect(existsSync(resolve(__dirname, `../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should return fail status on testing non-exported function', async () => {
@@ -469,7 +469,7 @@ describe('tester service', () => {
       it('should create codes folder and delete it after successful test', async () => {
         let renamed = false;
         let folderName;
-        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), (event, fileName) => {
+        const watcher = watch(resolve(__dirname, '../../testing/java/codes'), (event, fileName) => {
           if (event === 'rename' && fileName !== 'codes') {
             renamed = true;
             folderName = fileName;
@@ -487,13 +487,13 @@ describe('tester service', () => {
         });
         watcher.close();
         expect(renamed).toBeTruthy();
-        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
+        expect(existsSync(resolve(__dirname, `../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should create codes folder and delete it after erroneous test', async () => {
         let renamed = false;
         let folderName;
-        const watcher = watch(resolve(__dirname, '../../../testing/java/codes'), (event, fileName) => {
+        const watcher = watch(resolve(__dirname, '../../testing/java/codes'), (event, fileName) => {
           if (event === 'rename' && fileName !== 'codes') {
             renamed = true;
             folderName = fileName;
@@ -508,7 +508,7 @@ describe('tester service', () => {
         });
         watcher.close();
         expect(renamed).toBeTruthy();
-        expect(existsSync(resolve(__dirname, `../../../testing/javascript/codes/${folderName}`))).toBeFalsy();
+        expect(existsSync(resolve(__dirname, `../../testing/javascript/codes/${folderName}`))).toBeFalsy();
       });
 
       it('should return fail status on exception', async () => {
@@ -1349,23 +1349,23 @@ describe('tester service', () => {
   });
 });
 
-async function test(testData: Test): Promise<any> {
-  return new TesterService().test(testData);
+async function test(testData: Test): Promise<TestResults> {
+  return new SolutionService(undefined).test(testData);
 }
 
-async function testJavascriptWithCode({ solutionCode = '', testCode = '' }): Promise<any> {
+async function testJavascriptWithCode({ solutionCode = '', testCode = '' }): Promise<TestResults> {
   return test({ language: 'javascript', solutionCode, testCode, type: 'code' });
 }
 
-async function testJavascriptWithJson({ solutionCode = '', testJson = '' }): Promise<any> {
+async function testJavascriptWithJson({ solutionCode = '', testJson = '' }): Promise<TestResults> {
   return test({ language: 'javascript', solutionCode, testCode: testJson, type: 'json' });
 }
 
-async function testJavaWithCode({ solutionCode = '', testCode = '' }): Promise<any> {
+async function testJavaWithCode({ solutionCode = '', testCode = '' }): Promise<TestResults> {
   return test({ language: 'java', solutionCode, testCode, type: 'code' });
 }
 
-async function testJavaWithJson({ solutionCode = '', testJson = '' }): Promise<any> {
+async function testJavaWithJson({ solutionCode = '', testJson = '' }): Promise<TestResults> {
   return test({ language: 'java', solutionCode, testCode: testJson, type: 'json' });
 }
 
