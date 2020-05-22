@@ -13,6 +13,7 @@ services:
       MONGODB_URI: mongodb://db:27017/methcodus
       ALLOWED_ORIGIN: '*'
       PORT: 3000
+      PAIR_PROGRAMMING_REQUESTS_MAX_AGE: 300000
     volumes:
       - type: bind
         source: .

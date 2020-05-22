@@ -1,21 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 
-type ObjectId = MongooseSchema.Types.ObjectId;
-
 @Schema()
 export class Solution extends Document {
   @Prop()
   public solvedAt: Date;
 
   @Prop()
-  public user: { type: ObjectId; ref: 'User' };
+  public user: { type: MongooseSchema.Types.ObjectId; ref: 'User' };
 
   @Prop()
-  public pairUser: { type: ObjectId; ref: 'User' };
+  public pairUser: { type: MongooseSchema.Types.ObjectId; ref: 'User' };
 
   @Prop()
-  public exercise: { type: ObjectId; ref: 'Exercise' };
+  public exercise: { type: MongooseSchema.Types.ObjectId; ref: 'Exercise' };
 
   @Prop()
   public programmingLanguage: string;
