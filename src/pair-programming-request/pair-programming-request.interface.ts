@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { Socket } from 'socket.io';
 
 export type PairProgrammingRequest = {
   exerciseId: Schema.Types.ObjectId;
@@ -7,6 +8,6 @@ export type PairProgrammingRequest = {
   pairUser: {
     id: Schema.Types.ObjectId;
     userName: string;
-    socket: any;
+    socket: Socket;
   };
 };

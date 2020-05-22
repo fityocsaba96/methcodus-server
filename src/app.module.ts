@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { SolutionModule } from './solution/solution.module';
 import { PairProgrammingRequestModule } from './pair-programming-request/pair-programming-request.module';
 import { AuthModule } from './auth/auth.module';
+import { PairProgrammingModule } from './pair-programming/pair-programming.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     PairProgrammingRequestModule,
     AuthModule,
+    PairProgrammingModule,
   ],
 })
 export class AppModule {}
