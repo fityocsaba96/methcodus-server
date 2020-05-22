@@ -3,6 +3,7 @@ import * as LRUCache from 'lru-cache';
 import { Schema } from 'mongoose';
 import { PairProgrammingRequestController } from './pair-programming-request.controller';
 import { PairProgrammingRequest } from './pair-programming-request.interface';
+import { PairProgrammingRequestService } from './pair-programming-request.service';
 
 const pairProgrammingRequestsCacheProvider = {
   provide: 'pair-programming-requests-cache',
@@ -13,7 +14,7 @@ const pairProgrammingRequestsCacheProvider = {
 
 @Module({
   controllers: [PairProgrammingRequestController],
-  providers: [pairProgrammingRequestsCacheProvider],
+  providers: [PairProgrammingRequestService, pairProgrammingRequestsCacheProvider],
   exports: [pairProgrammingRequestsCacheProvider],
 })
 export class PairProgrammingRequestModule {}
