@@ -4,6 +4,7 @@ import { ExerciseModule } from './exercise/exercise.module';
 import { UserModule } from './user/user.module';
 import { SolutionModule } from './solution/solution.module';
 import { PairProgrammingRequestModule } from './pair-programming-request/pair-programming-request.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { PairProgrammingRequestModule } from './pair-programming-request/pair-pr
     SolutionModule,
     UserModule,
     PairProgrammingRequestModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
