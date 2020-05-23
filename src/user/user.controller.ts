@@ -1,6 +1,6 @@
-import { Controller, Post, Body, HttpCode, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './user.dto';
 import { ValidationException } from 'src/lib/validation-error';
 
 @Controller('users')
