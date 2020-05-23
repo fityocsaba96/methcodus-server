@@ -1,4 +1,5 @@
-import { Strategy } from 'passport-local';
+import { Strategy as LocalPassportStrategy } from 'passport-local';
+import { ExtractJwt, Strategy as JWTPassportStrategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -6,7 +7,7 @@ import { AuthException } from 'src/lib/validation-error';
 import { User } from 'src/user/user.schema';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalStrategy extends PassportStrategy(LocalPassportStrategy) {
   constructor(private readonly authService: AuthService) {
     super({
       usernameField: 'userName',
@@ -22,5 +23,20 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       throw new AuthException({ password: 'Wrong password!' });
     }
     return validatedUser;
+  }
+}
+
+@Injectable()
+export class JwtStrategy extends PassportStrategy(JWTPassportStrategy) {
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.JWT_SECRET_KEY,
+      ignoreExpiration: true,
+    });
+  }
+
+  public validate(payload: any): Partial<User> {
+    return { _id: payload.sub, userName: payload.username };
   }
 }
