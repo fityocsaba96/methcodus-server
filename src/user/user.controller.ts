@@ -1,7 +1,7 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, UsePipes } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './user.dto';
-import { ValidationException } from 'src/lib/validation-error';
+import { ValidationException, validationPipe } from 'src/lib/validation';
 
 @Controller('users')
 export class UserController {
@@ -9,6 +9,7 @@ export class UserController {
 
   @Post()
   @HttpCode(204)
+  @UsePipes(validationPipe)
   public async create(@Body() createUserDto: CreateUserDto): Promise<ValidationException | void> {
     if (await this.userService.existsUserName(createUserDto.userName)) {
       throw new ValidationException({ userName: 'This user name is not available!' });

@@ -1,4 +1,4 @@
-import { ValidationError, HttpException, HttpStatus } from '@nestjs/common';
+import { ValidationError, HttpException, HttpStatus, ValidationPipe } from '@nestjs/common';
 import { values, mapObjIndexed, indexBy, prop, pipe } from 'ramda';
 
 export class ValidationException extends HttpException {
@@ -13,8 +13,10 @@ export class AuthException extends HttpException {
   }
 }
 
-export const transformValidationErrors = pipe(
+const transformValidationErrors = pipe(
   indexBy<ValidationError>(prop('property')),
   mapObjIndexed(error => values(error.constraints)[0]),
   errors => new ValidationException(errors),
 );
+
+export const validationPipe = new ValidationPipe({ exceptionFactory: transformValidationErrors, whitelist: true });

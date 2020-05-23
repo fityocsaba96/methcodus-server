@@ -6,8 +6,8 @@ import { LocalAuthGuard } from './auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
+  @UseGuards(LocalAuthGuard)
   public async login(@Request() request): Promise<{ access_token: string }> {
     return this.authService.generateJWT(request.user);
   }

@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy as JWTPassportStrategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthException } from 'src/lib/validation-error';
+import { AuthException } from 'src/lib/validation';
 import { User } from 'src/user/user.schema';
 
 @Injectable()
