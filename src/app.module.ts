@@ -9,7 +9,7 @@ import { PairProgrammingModule } from './pair-programming/pair-programming.modul
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGODB_URI, { useNewUrlParser: true }),
+    MongooseModule.forRoot(process.env.MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false }),
     ExerciseModule,
     SolutionModule,
     UserModule,

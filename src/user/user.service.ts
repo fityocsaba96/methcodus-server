@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -16,11 +16,23 @@ export class UserService {
   public async insert(createUserDto: CreateUserDto): Promise<User> {
     const user = new this.userModel(createUserDto);
     user.registeredAt = new Date();
-    user.passwordHash = await bcrypt.hash(createUserDto.password, 10);
+    user.passwordHash = await this.hash(createUserDto.password);
     return user.save();
   }
 
   public async findByUserName(userName: string): Promise<User> {
     return this.userModel.findOne({ userName });
+  }
+
+  public async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return this.userModel.findByIdAndUpdate(id, {
+      name: updateUserDto.name,
+      email: updateUserDto.email,
+      passwordHash: await this.hash(updateUserDto.password),
+    });
+  }
+
+  private hash(password: string): Promise<string> {
+    return bcrypt.hash(password, 10);
   }
 }
