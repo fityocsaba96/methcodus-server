@@ -19,4 +19,8 @@ export class UserService {
     user.passwordHash = await bcrypt.hash(createUserDto.password, 10);
     return user.save();
   }
+
+  public async findByUserName(userName: string): Promise<User> {
+    return this.userModel.findOne({ userName });
+  }
 }

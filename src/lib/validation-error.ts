@@ -7,6 +7,12 @@ export class ValidationException extends HttpException {
   }
 }
 
+export class AuthException extends HttpException {
+  constructor(errors: any) {
+    super({ errors }, HttpStatus.UNAUTHORIZED);
+  }
+}
+
 export const transformValidationErrors = pipe(
   indexBy<ValidationError>(prop('property')),
   mapObjIndexed(error => values(error.constraints)[0]),
