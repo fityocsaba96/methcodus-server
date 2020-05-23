@@ -15,6 +15,6 @@ const pairProgrammingRequestsCacheProvider = {
 @Module({
   controllers: [PairProgrammingRequestController],
   providers: [PairProgrammingRequestService, pairProgrammingRequestsCacheProvider],
-  exports: [pairProgrammingRequestsCacheProvider],
+  exports: [PairProgrammingRequestService],
 })
 export class PairProgrammingRequestModule {}
