@@ -5,9 +5,12 @@ import { ExerciseService } from './exercise.service';
 import { ExerciseSchema } from './exercise.schema';
 import { UserModule } from 'src/user/user.module';
 
+const mongooseModule = MongooseModule.forFeature([{ name: 'Exercise', schema: ExerciseSchema }]);
+
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'Exercise', schema: ExerciseSchema }]), UserModule],
+  imports: [mongooseModule, UserModule],
   controllers: [ExerciseController],
   providers: [ExerciseService],
+  exports: [mongooseModule],
 })
 export class ExerciseModule {}

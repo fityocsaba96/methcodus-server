@@ -1,17 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { exec as execCallback } from 'child_process';
 import { resolve } from 'path';
 import { promisify } from 'util';
 import { Solution } from './solution.schema';
 import { Test, TestResults } from './solution.interface';
+import { Exercise } from 'src/exercise/exercise.schema';
+import { User } from 'src/user/user.schema';
 
 const exec = promisify(execCallback);
 
 @Injectable()
 export class SolutionService {
-  constructor(@InjectModel(Solution.name) private readonly solutionModel: Model<Solution>) {}
+  constructor(
+    @InjectModel(Solution.name) private readonly solutionModel: Model<Solution>,
+    @InjectModel(Exercise.name) private readonly exerciseModel: Model<Exercise>,
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {}
+
+  public async findAllByUserAndPopulate(user: string): Promise<Solution[]> {
+    return this.solutionModel
+      .find({ user: Types.ObjectId(user) as any })
+      .populate('exercise', ['_id', 'name'], this.exerciseModel)
+      .populate('pairUser', 'userName', this.userModel);
+  }
 
   public async test(test: Test): Promise<TestResults> {
     const command = { javascript: 'node javascript-code-tester.js', java: 'java -cp .:* JavaCodeTester' }[test.language];
