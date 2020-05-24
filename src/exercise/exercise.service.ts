@@ -20,6 +20,10 @@ export class ExerciseService {
     return this.exerciseModel.find().populate('createdBy', 'userName', this.userModel);
   }
 
+  public async findByIdAndPopulateUserName(_id: string): Promise<Exercise> {
+    return this.exerciseModel.findById(_id).populate('createdBy', 'userName', this.userModel);
+  }
+
   public async insert(createdBy: string, createExerciseDto: CreateExerciseDto): Promise<Exercise> {
     const exercise = new this.exerciseModel(createExerciseDto);
     exercise.createdAt = new Date();

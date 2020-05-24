@@ -1,4 +1,4 @@
-import { MinLength, IsArray, ArrayNotEmpty, ValidateNested, IsIn, IsString } from 'class-validator';
+import { MinLength, IsArray, ArrayNotEmpty, ValidateNested, IsIn, IsString, IsMongoId } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IsValidValueOfType } from 'src/lib/validation-decorator';
 
@@ -43,4 +43,9 @@ export class CreateExerciseDto {
   @Type(() => CreateExerciseTestCaseDto)
   @ValidateNested({ each: true, message: 'Test case must be an object!' })
   public readonly testCases: CreateExerciseTestCaseDto[];
+}
+
+export class GetExerciseParams {
+  @IsMongoId({ message: 'ID must be a valid MongoDB Object ID!' })
+  public readonly _id: string;
 }
