@@ -1,9 +1,11 @@
-import { Controller, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Post, HttpCode, UsePipes, Body } from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import { JwtAuthGuard } from 'src/auth/auth.guard';
 import { Request as ExpressRequest } from 'express';
 import { Exercise } from './exercise.schema';
 import { pipe, pick, map, assoc } from 'ramda';
+import { validationPipe } from 'src/lib/validation-error';
+import { CreateExerciseDto } from './exercise.dto';
 
 @Controller('exercises')
 export class ExerciseController {
@@ -16,5 +18,13 @@ export class ExerciseController {
     return map(pipe(pick(['_id', 'createdAt', 'name']), assoc('createdBy', { userName: user.userName })))(
       await this.exerciseService.findAllByCreatedBy(user._id),
     );
+  }
+
+  @Post()
+  @HttpCode(204)
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(validationPipe)
+  public async create(@Request() request: ExpressRequest, @Body() createExerciseDto: CreateExerciseDto): Promise<void> {
+    await this.exerciseService.insert((request.user as any)._id, createExerciseDto);
   }
 }
