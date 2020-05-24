@@ -15,9 +15,15 @@ export class ExerciseController {
   @UseGuards(JwtAuthGuard)
   public async getMine(@Request() request: ExpressRequest): Promise<Partial<Exercise>[]> {
     const user = request.user as any;
-    return map(pipe(pick(['_id', 'createdAt', 'name']), assoc('createdBy', { userName: user.userName })))(
+    return map(pipe(pick(['_id', 'createdAt', 'name']), assoc('createdBy', { _id: user._id, userName: user.userName })))(
       await this.exerciseService.findAllByCreatedBy(user._id),
     );
+  }
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  public async getAll(): Promise<Partial<Exercise>[]> {
+    return map(pick(['_id', 'createdAt', 'name', 'createdBy']), await this.exerciseService.findAllAndPopulateUserName());
   }
 
   @Post()
