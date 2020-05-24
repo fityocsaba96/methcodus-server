@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { ValidationException, validationPipe } from 'src/lib/validation';
 import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { Request as ExpressRequest } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -23,9 +24,9 @@ export class UserController {
   @HttpCode(204)
   @UseGuards(JwtAuthGuard)
   @UsePipes(validationPipe)
-  public async update(@Request() request, @Body() updateUserDto: UpdateUserDto): Promise<void> {
+  public async updateMine(@Request() request: ExpressRequest, @Body() updateUserDto: UpdateUserDto): Promise<void> {
     this.validatePasswordsMatch(updateUserDto);
-    await this.userService.update(request.user._id, updateUserDto);
+    await this.userService.update((request.user as any)._id, updateUserDto);
   }
 
   private validatePasswordsMatch(userDto: CreateUserDto | UpdateUserDto): void {

@@ -7,7 +7,7 @@ import { PairProgrammingRequestService } from './pair-programming-request.servic
 
 const pairProgrammingRequestsCacheProvider = {
   provide: 'pair-programming-requests-cache',
-  useValue: new LRUCache<Schema.Types.ObjectId, PairProgrammingRequest>({
+  useValue: new LRUCache<string, PairProgrammingRequest>({
     maxAge: Number(process.env.PAIR_PROGRAMMING_REQUESTS_MAX_AGE),
   }),
 };
