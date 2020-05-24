@@ -1,7 +1,7 @@
 import { Controller, Post, Body, HttpCode, UsePipes, Put, UseGuards, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
-import { ValidationException, validationPipe } from 'src/lib/validation';
+import { ValidationException, validationPipe } from 'src/lib/validation-error';
 import { JwtAuthGuard } from 'src/auth/auth.guard';
 import { Request as ExpressRequest } from 'express';
 
@@ -14,7 +14,7 @@ export class UserController {
   @UsePipes(validationPipe)
   public async create(@Body() createUserDto: CreateUserDto): Promise<void> {
     if (await this.userService.existsUserName(createUserDto.userName)) {
-      throw new ValidationException({ userName: 'This user name is not available!' });
+      throw new ValidationException(['This user name is not available!']);
     }
     this.validatePasswordsMatch(createUserDto);
     await this.userService.insert(createUserDto);
@@ -31,7 +31,7 @@ export class UserController {
 
   private validatePasswordsMatch(userDto: CreateUserDto | UpdateUserDto): void {
     if (userDto.password !== userDto.passwordConfirmation) {
-      throw new ValidationException({ password: 'Passwords does not match!' });
+      throw new ValidationException(['Passwords does not match!']);
     }
   }
 }

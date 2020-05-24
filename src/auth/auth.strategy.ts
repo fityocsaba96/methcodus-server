@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy as JWTPassportStrategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthException } from 'src/lib/validation';
+import { AuthException } from 'src/lib/validation-error';
 import { User } from 'src/user/user.schema';
 
 @Injectable()
@@ -18,9 +18,9 @@ export class LocalStrategy extends PassportStrategy(LocalPassportStrategy) {
   public async validate(userName: string, password: string): Promise<User> {
     const validatedUser = await this.authService.validateUser(userName, password);
     if (validatedUser === undefined) {
-      throw new AuthException({ userName: 'User name does not exist!' });
+      throw new AuthException(['User name does not exist!']);
     } else if (validatedUser === false) {
-      throw new AuthException({ password: 'Wrong password!' });
+      throw new AuthException(['Wrong password!']);
     }
     return validatedUser;
   }
