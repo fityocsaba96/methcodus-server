@@ -8,4 +8,8 @@ export class PairProgrammingRequestService {
     @Inject('pair-programming-requests-cache')
     private readonly pairProgrammingRequestsCache: LRUCache<string, PairProgrammingRequest>,
   ) {}
+
+  public find(id: string): PairProgrammingRequest {
+    return this.pairProgrammingRequestsCache.get(id);
+  }
 }
