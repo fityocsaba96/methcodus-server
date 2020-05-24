@@ -6,8 +6,8 @@ import { resolve } from 'path';
 import { promisify } from 'util';
 import { Solution } from './solution.schema';
 import { Test, TestResults } from './solution.interface';
-import { Exercise } from 'src/exercise/exercise.schema';
-import { User } from 'src/user/user.schema';
+import { Exercise } from '../exercise/exercise.schema';
+import { User } from '../user/user.schema';
 
 const exec = promisify(execCallback);
 
