@@ -9,7 +9,7 @@ export class PairProgrammingRequestService {
     private readonly pairProgrammingRequestsCache: LRUCache<string, PairProgrammingRequest>,
   ) {}
 
-  public find(id: string): PairProgrammingRequest {
-    return this.pairProgrammingRequestsCache.get(id);
+  public find(_id: string): PairProgrammingRequest {
+    return this.pairProgrammingRequestsCache.get(_id);
   }
 }

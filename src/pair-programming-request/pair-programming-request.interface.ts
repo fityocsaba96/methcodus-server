@@ -6,7 +6,7 @@ export type PairProgrammingRequest = {
   programmingLanguage: string;
   softwareDevelopmentMethod: string;
   pairUser: {
-    id: string;
+    _id: string;
     userName: string;
     socket: Socket;
   };

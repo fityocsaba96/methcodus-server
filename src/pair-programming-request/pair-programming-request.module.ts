@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import * as LRUCache from 'lru-cache';
-import { Schema } from 'mongoose';
 import { PairProgrammingRequestController } from './pair-programming-request.controller';
 import { PairProgrammingRequest } from './pair-programming-request.interface';
 import { PairProgrammingRequestService } from './pair-programming-request.service';
