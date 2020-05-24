@@ -1350,7 +1350,7 @@ describe('solution service', () => {
 });
 
 async function test(testData: Test): Promise<TestResults> {
-  return new SolutionService(undefined).test(testData);
+  return new SolutionService(undefined, undefined, undefined).test(testData);
 }
 
 async function testJavascriptWithCode({ solutionCode = '', testCode = '' }): Promise<TestResults> {
