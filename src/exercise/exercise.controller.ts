@@ -30,7 +30,7 @@ export class ExerciseController {
   @UseGuards(JwtAuthGuard)
   @UsePipes(validationPipe)
   public async get(@Param() params: GetExerciseParams, @Query('includeTestCases') includeTestCases: string): Promise<Partial<Exercise>> {
-    const exercise = await this.exerciseService.findByIdAndPopulateUserName(params._id);
+    const exercise = await this.exerciseService.findById(params._id, true);
     if (exercise === null) {
       throw new ValidationException(['Exercise with this ID does not exist!']);
     }
