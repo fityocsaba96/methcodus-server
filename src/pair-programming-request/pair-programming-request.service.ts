@@ -12,4 +12,8 @@ export class PairProgrammingRequestService {
   public find(_id: string): PairProgrammingRequest {
     return this.pairProgrammingRequestsCache.get(_id);
   }
+
+  public insert(_id: string, pairProgrammingRequest: PairProgrammingRequest): void {
+    this.pairProgrammingRequestsCache.set(_id, pairProgrammingRequest);
+  }
 }
