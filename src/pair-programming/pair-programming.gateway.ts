@@ -1,4 +1,4 @@
-import { WebSocketGateway, SubscribeMessage, MessageBody, ConnectedSocket } from '@nestjs/websockets';
+import { WebSocketGateway, SubscribeMessage, MessageBody, ConnectedSocket, OnGatewayDisconnect } from '@nestjs/websockets';
 import { PairProgrammingRequestService } from 'src/pair-programming-request/pair-programming-request.service';
 import { UseGuards } from '@nestjs/common';
 import { WebSocketJwtAuthGuard } from 'src/auth/auth.guard';
@@ -9,7 +9,7 @@ import { User } from 'src/user/user.schema';
 import { pipe, omit, assoc } from 'ramda';
 
 @WebSocketGateway({ namespace: 'pair-programming' })
-export class PairProgrammingGateway {
+export class PairProgrammingGateway implements OnGatewayDisconnect {
   constructor(private readonly pairProgrammingRequestService: PairProgrammingRequestService, private readonly userService: UserService) {}
 
   @UseGuards(WebSocketJwtAuthGuard)
@@ -48,6 +48,13 @@ export class PairProgrammingGateway {
       (socket as any).data = assoc('pairSocket', pairSocket, partialData);
       (pairSocket as any).data = assoc('pairSocket', socket, partialData);
       [socket, pairSocket].forEach(clientSocket => clientSocket.emit('pair-connected'));
+    }
+  }
+
+  public handleDisconnect(socket: Socket): void {
+    const pairSocket: Socket = (socket as any).data?.pairSocket;
+    if (pairSocket !== undefined && !pairSocket.disconnected) {
+      pairSocket.emit('pair-disconnected');
     }
   }
 }
