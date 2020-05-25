@@ -1,15 +1,15 @@
 import { Controller, Get, UseGuards, Request, Response, Post, UsePipes, Body, Query } from '@nestjs/common';
 import { SolutionService } from './solution.service';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { JwtAuthGuard } from '../auth/auth.guard';
 import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import { Solution } from './solution.schema';
 import { map, pick, all, propEq, includes } from 'ramda';
-import { validationPipe, ValidationException } from 'src/lib/validation-error';
+import { validationPipe, ValidationException } from '../lib/validation-error';
 import { FullTestResults, TestResults } from './solution.interface';
 import { TestOrCreateSolutionDto } from './solution.dto';
-import { ExerciseService } from 'src/exercise/exercise.service';
+import { ExerciseService } from '../exercise/exercise.service';
 import { Types } from 'mongoose';
-import { User } from 'src/user/user.schema';
+import { User } from '../user/user.schema';
 
 @Controller('solutions')
 export class SolutionController {

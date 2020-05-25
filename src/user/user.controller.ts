@@ -1,8 +1,8 @@
 import { Controller, Post, Body, HttpCode, UsePipes, Put, UseGuards, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
-import { ValidationException, validationPipe } from 'src/lib/validation-error';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { ValidationException, validationPipe } from '../lib/validation-error';
+import { JwtAuthGuard } from '../auth/auth.guard';
 import { Request as ExpressRequest } from 'express';
 
 @Controller('users')

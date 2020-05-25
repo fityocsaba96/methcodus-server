@@ -3,8 +3,8 @@ import { ExtractJwt, Strategy as JWTPassportStrategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthException } from 'src/lib/validation-error';
-import { User } from 'src/user/user.schema';
+import { AuthException } from '../lib/validation-error';
+import { User } from '../user/user.schema';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(LocalPassportStrategy) {

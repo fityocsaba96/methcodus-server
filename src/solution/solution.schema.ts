@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema, Types } from 'mongoose';
-import { User } from 'src/user/user.schema';
-import { Exercise } from 'src/exercise/exercise.schema';
+import { User } from '../user/user.schema';
+import { Exercise } from '../exercise/exercise.schema';
 
 @Schema()
 export class Solution extends Document {

@@ -1,10 +1,10 @@
 import { Controller, Get, UseGuards, Request, Post, HttpCode, UsePipes, Body, Param, Query } from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { JwtAuthGuard } from '../auth/auth.guard';
 import { Request as ExpressRequest } from 'express';
 import { Exercise } from './exercise.schema';
 import { pipe, pick, map, assoc, over, lensProp } from 'ramda';
-import { validationPipe, ValidationException } from 'src/lib/validation-error';
+import { validationPipe, ValidationException } from '../lib/validation-error';
 import { CreateExerciseDto, GetExerciseParams } from './exercise.dto';
 
 @Controller('exercises')

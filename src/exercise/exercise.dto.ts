@@ -1,6 +1,6 @@
 import { MinLength, IsArray, ArrayNotEmpty, ValidateNested, IsIn, IsString, IsMongoId } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IsValidValueOfType } from 'src/lib/validation-decorator';
+import { IsValidValueOfType } from '../lib/validation-decorator';
 
 class CreateExerciseTestCaseTypeAndValueDto {
   @IsIn(['integer', 'double', 'boolean', 'string', 'integer array', 'double array', 'boolean array', 'string array'], {

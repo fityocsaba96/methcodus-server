@@ -1,6 +1,6 @@
 import { Controller, Get, UseGuards, Request, Response } from '@nestjs/common';
 import { PairProgrammingRequestService } from './pair-programming-request.service';
-import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { JwtAuthGuard } from '../auth/auth.guard';
 import { dissocPath } from 'ramda';
 import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
 import { PairProgrammingRequest } from './pair-programming-request.interface';

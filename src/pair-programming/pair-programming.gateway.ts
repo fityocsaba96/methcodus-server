@@ -1,11 +1,11 @@
 import { WebSocketGateway, SubscribeMessage, MessageBody, ConnectedSocket, OnGatewayDisconnect } from '@nestjs/websockets';
-import { PairProgrammingRequestService } from 'src/pair-programming-request/pair-programming-request.service';
+import { PairProgrammingRequestService } from '../pair-programming-request/pair-programming-request.service';
 import { UseGuards } from '@nestjs/common';
-import { WebSocketJwtAuthGuard } from 'src/auth/auth.guard';
+import { WebSocketJwtAuthGuard } from '../auth/auth.guard';
 import { Socket } from 'socket.io';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { AddPairProgrammingRequestDto, PairEditedCodeDto } from './pair-programming.dto';
-import { User } from 'src/user/user.schema';
+import { User } from '../user/user.schema';
 import { pipe, omit, assoc } from 'ramda';
 
 @WebSocketGateway({ namespace: 'pair-programming' })
