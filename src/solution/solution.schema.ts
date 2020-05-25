@@ -1,27 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
+import { User } from 'src/user/user.schema';
+import { Exercise } from 'src/exercise/exercise.schema';
 
 @Schema()
 export class Solution extends Document {
-  @Prop()
+  @Prop(Date)
   public solvedAt: Date;
 
-  @Prop()
-  public user: { type: MongooseSchema.Types.ObjectId; ref: 'User' };
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name })
+  public user: Types.ObjectId;
 
-  @Prop()
-  public pairUser: { type: MongooseSchema.Types.ObjectId; ref: 'User' };
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name })
+  public pairUser: Types.ObjectId;
 
-  @Prop()
-  public exercise: { type: MongooseSchema.Types.ObjectId; ref: 'Exercise' };
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: Exercise.name })
+  public exercise: Types.ObjectId;
 
-  @Prop()
+  @Prop(String)
   public programmingLanguage: string;
 
-  @Prop()
+  @Prop(String)
   public softwareDevelopmentMethod: string;
 
-  @Prop()
+  @Prop(String)
   public code: string;
 }
 

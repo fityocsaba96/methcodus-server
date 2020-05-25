@@ -1,24 +1,30 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
+import { User } from 'src/user/user.schema';
 
 @Schema()
 export class Exercise extends Document {
-  @Prop()
+  @Prop(Date)
   public createdAt: Date;
 
-  @Prop()
-  public createdBy: { type: MongooseSchema.Types.ObjectId; ref: 'User' };
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name })
+  public createdBy: Types.ObjectId;
 
-  @Prop()
+  @Prop(String)
   public name: string;
 
-  @Prop()
+  @Prop(String)
   public description: string;
 
-  @Prop()
-  public testCases: [
-    { description: string; parameters: [{ type: string; value: string }]; matcher: string; expected: { type: string; value: string } },
-  ];
+  @Prop([
+    { description: String, parameters: [{ type: String, value: String }], matcher: String, expected: { type: String, value: String } },
+  ])
+  public testCases: {
+    description: string;
+    parameters: { type: string; value: string }[];
+    matcher: string;
+    expected: { type: string; value: string };
+  }[];
 }
 
 export const ExerciseSchema = SchemaFactory.createForClass(Exercise);

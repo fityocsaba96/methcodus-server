@@ -84,13 +84,13 @@ export class SolutionController {
     const solutions: Partial<Solution>[] = [
       {
         ...testOrCreateSolutionDto,
-        user: Types.ObjectId(user._id) as any,
-        exercise: Types.ObjectId(testOrCreateSolutionDto.exerciseId) as any,
+        user: Types.ObjectId(user._id),
+        exercise: Types.ObjectId(testOrCreateSolutionDto.exerciseId),
         code: testOrCreateSolutionDto.solutionCode,
       },
     ];
     if (includes(testOrCreateSolutionDto.softwareDevelopmentMethod, ['pair-programming', 'ping-pong'])) {
-      solutions[0].pairUser = Types.ObjectId(testOrCreateSolutionDto.pairUserId) as any;
+      solutions[0].pairUser = Types.ObjectId(testOrCreateSolutionDto.pairUserId);
       solutions.push({ ...solutions[0], user: solutions[0].pairUser, pairUser: solutions[0].user });
     }
     return solutions;

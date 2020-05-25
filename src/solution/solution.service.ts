@@ -6,25 +6,19 @@ import { resolve } from 'path';
 import { promisify } from 'util';
 import { Solution } from './solution.schema';
 import { Test, TestResults } from './solution.interface';
-import { Exercise } from '../exercise/exercise.schema';
-import { User } from '../user/user.schema';
 import { map, assoc } from 'ramda';
 
 const exec = promisify(execCallback);
 
 @Injectable()
 export class SolutionService {
-  constructor(
-    @InjectModel(Solution.name) private readonly solutionModel: Model<Solution>,
-    @InjectModel(Exercise.name) private readonly exerciseModel: Model<Exercise>,
-    @InjectModel(User.name) private readonly userModel: Model<User>,
-  ) {}
+  constructor(@InjectModel(Solution.name) private readonly solutionModel: Model<Solution>) {}
 
   public async findAllByUserAndPopulate(user: string): Promise<Solution[]> {
     return this.solutionModel
-      .find({ user: Types.ObjectId(user) as any })
-      .populate('exercise', ['_id', 'name'], this.exerciseModel)
-      .populate('pairUser', 'userName', this.userModel);
+      .find({ user: Types.ObjectId(user) })
+      .populate('exercise', ['_id', 'name'])
+      .populate('pairUser', 'userName');
   }
 
   public async insertMany(solutions: Partial<Solution>[]): Promise<Solution[]> {

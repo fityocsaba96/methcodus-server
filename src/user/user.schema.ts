@@ -3,19 +3,19 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class User extends Document {
-  @Prop()
+  @Prop(Date)
   public registeredAt: Date;
 
-  @Prop()
+  @Prop(String)
   public userName: string;
 
-  @Prop()
+  @Prop(String)
   public name: string;
 
-  @Prop()
+  @Prop(String)
   public email: string;
 
-  @Prop()
+  @Prop(String)
   public passwordHash: string;
 }
 
