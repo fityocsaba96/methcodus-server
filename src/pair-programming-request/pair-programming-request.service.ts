@@ -16,4 +16,10 @@ export class PairProgrammingRequestService {
   public insert(_id: string, pairProgrammingRequest: PairProgrammingRequest): void {
     this.pairProgrammingRequestsCache.set(_id, pairProgrammingRequest);
   }
+
+  public remove(_id: string): PairProgrammingRequest {
+    const pairProgrammingRequest = this.pairProgrammingRequestsCache.get(_id);
+    this.pairProgrammingRequestsCache.del(_id);
+    return pairProgrammingRequest;
+  }
 }

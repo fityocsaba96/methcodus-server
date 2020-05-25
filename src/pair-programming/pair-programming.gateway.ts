@@ -37,4 +37,17 @@ export class PairProgrammingGateway {
     );
     return { _id: pairUser._id };
   }
+
+  @UseGuards(WebSocketJwtAuthGuard)
+  @SubscribeMessage('pair-connected')
+  public async onPairConnected(@ConnectedSocket() socket: Socket): Promise<void> {
+    const pairProgrammingRequest = this.pairProgrammingRequestService.remove((socket as any).user._id);
+    if (pairProgrammingRequest !== undefined) {
+      const partialData = { softwareDevelopmentMethod: pairProgrammingRequest.softwareDevelopmentMethod };
+      const pairSocket = pairProgrammingRequest.pairUser.socket;
+      (socket as any).data = assoc('pairSocket', pairSocket, partialData);
+      (pairSocket as any).data = assoc('pairSocket', socket, partialData);
+      [socket, pairSocket].forEach(clientSocket => clientSocket.emit('pair-connected'));
+    }
+  }
 }
