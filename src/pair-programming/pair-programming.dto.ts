@@ -4,3 +4,8 @@ export class AddPairProgrammingRequestDto {
   public readonly programmingLanguage: string;
   public readonly softwareDevelopmentMethod: string;
 }
+
+export class PairEditedCodeDto {
+  public readonly action: any;
+  public readonly codeEditorId: number;
+}

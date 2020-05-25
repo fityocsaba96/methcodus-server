@@ -4,7 +4,7 @@ import { UseGuards } from '@nestjs/common';
 import { WebSocketJwtAuthGuard } from 'src/auth/auth.guard';
 import { Socket } from 'socket.io';
 import { UserService } from 'src/user/user.service';
-import { AddPairProgrammingRequestDto } from './pair-programming.dto';
+import { AddPairProgrammingRequestDto, PairEditedCodeDto } from './pair-programming.dto';
 import { User } from 'src/user/user.schema';
 import { pipe, omit, assoc } from 'ramda';
 
@@ -49,6 +49,14 @@ export class PairProgrammingGateway implements OnGatewayDisconnect {
       (pairSocket as any).data = assoc('pairSocket', socket, partialData);
       [socket, pairSocket].forEach(clientSocket => clientSocket.emit('pair-connected'));
     }
+  }
+
+  @UseGuards(WebSocketJwtAuthGuard)
+  @SubscribeMessage('pair-edited-code')
+  public async onPairEditedCode(@MessageBody() pairEditedCodeDto: PairEditedCodeDto, @ConnectedSocket() socket: Socket): Promise<void> {
+    const pairSocket = (socket as any).data.pairSocket;
+    const socketsToEmit = (socket as any).data.softwareDevelopmentMethod === 'pair-programming' ? [socket, pairSocket] : [pairSocket];
+    socketsToEmit.forEach(clientSocket => clientSocket.emit('pair-edited-code', pairEditedCodeDto));
   }
 
   public handleDisconnect(socket: Socket): void {
