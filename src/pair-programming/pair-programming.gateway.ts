@@ -59,6 +59,12 @@ export class PairProgrammingGateway implements OnGatewayDisconnect {
     socketsToEmit.forEach(clientSocket => clientSocket.emit('pair-edited-code', pairEditedCodeDto));
   }
 
+  @UseGuards(WebSocketJwtAuthGuard)
+  @SubscribeMessage('forward-to-pair')
+  public async onForwardToPair(@MessageBody() forwardToPairDto: any, @ConnectedSocket() socket: Socket): Promise<void> {
+    (socket as any).data.pairSocket.emit('forward-to-pair', forwardToPairDto);
+  }
+
   public handleDisconnect(socket: Socket): void {
     const pairSocket: Socket = (socket as any).data?.pairSocket;
     if (pairSocket !== undefined && !pairSocket.disconnected) {
