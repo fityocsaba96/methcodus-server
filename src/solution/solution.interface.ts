@@ -5,9 +5,14 @@ export type Test = {
   type: 'code' | 'json';
 };
 
+export type FullTestResults = {
+  builtInTestResults: TestResults;
+  ownTestResults?: TestResults;
+};
+
 export type TestResults = {
   results?: TestResult[];
   error?: string;
 };
 
-export type TestResult = { name: string; status: string };
+type TestResult = { name: string; status: string };

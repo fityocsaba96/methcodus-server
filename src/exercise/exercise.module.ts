@@ -11,6 +11,6 @@ const mongooseModule = MongooseModule.forFeature([{ name: 'Exercise', schema: Ex
   imports: [mongooseModule, UserModule],
   controllers: [ExerciseController],
   providers: [ExerciseService],
-  exports: [mongooseModule],
+  exports: [mongooseModule, ExerciseService],
 })
 export class ExerciseModule {}

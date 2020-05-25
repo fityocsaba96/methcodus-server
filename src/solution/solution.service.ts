@@ -8,6 +8,7 @@ import { Solution } from './solution.schema';
 import { Test, TestResults } from './solution.interface';
 import { Exercise } from '../exercise/exercise.schema';
 import { User } from '../user/user.schema';
+import { map, assoc } from 'ramda';
 
 const exec = promisify(execCallback);
 
@@ -24,6 +25,10 @@ export class SolutionService {
       .find({ user: Types.ObjectId(user) as any })
       .populate('exercise', ['_id', 'name'], this.exerciseModel)
       .populate('pairUser', 'userName', this.userModel);
+  }
+
+  public async insertMany(solutions: Partial<Solution>[]): Promise<Solution[]> {
+    return this.solutionModel.insertMany(map(assoc('solvedAt', new Date()), solutions));
   }
 
   public async test(test: Test): Promise<TestResults> {
