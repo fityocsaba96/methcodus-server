@@ -1,19 +1,21 @@
 import { ValidationError, HttpException, HttpStatus, ValidationPipe } from '@nestjs/common';
 
+export type ErrorResponse = { errors: string[] };
+
 export class ValidationException extends HttpException {
-  constructor(errors: any) {
+  constructor(errors: ErrorResponse['errors']) {
     super({ errors }, HttpStatus.BAD_REQUEST);
   }
 }
 
 export class AuthException extends HttpException {
-  constructor(errors: any) {
+  constructor(errors: ErrorResponse['errors']) {
     super({ errors }, HttpStatus.UNAUTHORIZED);
   }
 }
 
-const collectValidationErrors = (validationErrors: ValidationError[]) => {
-  const validationErrorMessages = [];
+const collectValidationErrors = (validationErrors: ValidationError[]): string[] => {
+  const validationErrorMessages: string[] = [];
   for (const validationError of validationErrors) {
     if (validationError.constraints !== undefined) {
       validationErrorMessages.push(...Object.values(validationError.constraints));

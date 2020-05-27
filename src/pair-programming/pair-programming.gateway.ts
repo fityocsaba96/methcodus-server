@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { AddPairProgrammingRequestDto, PairEditedCodeDto } from './pair-programming.dto';
 import { User } from '../user/user.schema';
 import { pipe, omit, assoc } from 'ramda';
+import { ErrorResponse } from '../lib/validation-error';
 
 @WebSocketGateway({ namespace: 'pair-programming' })
 export class PairProgrammingGateway implements OnGatewayDisconnect {
@@ -23,7 +24,7 @@ export class PairProgrammingGateway implements OnGatewayDisconnect {
   public async onAddPairProgrammingRequest(
     @MessageBody() addPairProgrammingRequestDto: AddPairProgrammingRequestDto,
     @ConnectedSocket() socket: Socket,
-  ): Promise<Partial<User> | { errors: string[] }> {
+  ): Promise<Partial<User> | ErrorResponse> {
     const pairUser = await this.userService.findByUserName(addPairProgrammingRequestDto.pairUserName);
     if (pairUser === null) {
       return { errors: ['User with this user name does not exist!'] };
