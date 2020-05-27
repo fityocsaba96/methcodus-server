@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './auth.guard';
 import { Request as ExpressRequest } from 'express';
 import { User } from '../user/user.schema';
+import { AccessToken } from './auth.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -10,7 +11,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  public async login(@Request() request: ExpressRequest): Promise<{ access_token: string }> {
+  public async login(@Request() request: ExpressRequest): Promise<AccessToken> {
     return this.authService.generateJWT(request.user as User);
   }
 }
