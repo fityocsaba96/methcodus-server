@@ -17,7 +17,7 @@ export class SolutionController {
 
   @Get('me')
   @UseGuards(JwtAuthGuard)
-  public async getMine(@Request() request: ExpressRequest): Promise<Partial<Solution>> {
+  public async getMine(@Request() request: ExpressRequest): Promise<Partial<Solution>[]> {
     return map(
       pick(['solvedAt', 'exercise', 'programmingLanguage', 'softwareDevelopmentMethod', 'pairUser', 'code']),
       await this.solutionService.findAllByUserAndPopulate((request.user as any)._id),
