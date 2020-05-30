@@ -25,6 +25,9 @@ export class PairProgrammingGateway implements OnGatewayDisconnect {
     @MessageBody() addPairProgrammingRequestDto: AddPairProgrammingRequestDto,
     @ConnectedSocket() socket: Socket,
   ): Promise<Partial<User> | ErrorResponse> {
+    if ((socket as any).user.userName === addPairProgrammingRequestDto.pairUserName) {
+      return { errors: ['You cannot send programming request to yourself!'] };
+    }
     const pairUser = await this.userService.findByUserName(addPairProgrammingRequestDto.pairUserName);
     if (pairUser === null) {
       return { errors: ['User with this user name does not exist!'] };
