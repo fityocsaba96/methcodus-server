@@ -16,14 +16,12 @@ export class TestOrCreateSolutionDto {
   @MinLength(1, { message: 'Function call code cannot be empty!' })
   public readonly functionCallCode: string;
 
-  @MinLength(1, { message: 'Solution code cannot be empty!' })
   @MaxLength(5000, { message: 'Solution code cannot be longer than 5000 characters!' })
   public readonly solutionCode: string;
 
   @ValidateIf((testOrCreateSolutionDto: TestOrCreateSolutionDto) =>
     includes(testOrCreateSolutionDto.softwareDevelopmentMethod, ['tdd', 'ping-pong']),
   )
-  @MinLength(1, { message: 'Test code cannot be empty!' })
   @MaxLength(5000, { message: 'Test code cannot be longer than 5000 characters!' })
   public readonly testCode: string;
 
