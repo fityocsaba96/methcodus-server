@@ -1,7 +1,3 @@
-setup:
-  addons:
-    - plan: mongolab:sandbox
-      as: MONGODB
 build:
   docker:
     web: Dockerfile
