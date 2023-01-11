@@ -33,7 +33,7 @@
     "@nestjs/websockets": "7.0.13",
     "bcrypt": "4.0.1",
     "class-transformer": "0.2.3",
-    "class-validator": "0.12.2",
+    "class-validator": "0.14.0",
     "lru-cache": "5.1.1",
     "mongoose": "5.9.15",
     "passport": "0.4.1",
